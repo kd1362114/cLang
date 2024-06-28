@@ -1,0 +1,141 @@
+#include<stdio.h>
+
+enum Bitstate
+{
+	Base	  = 0,			// 0000 0000 í èÌèÛë‘
+	Poison	  = 1 << 0,		// 0000 0001 Ç«Ç≠èÛë‘
+	Sleep	  = 1 << 1,		// 0000 0010 ñ∞ÇËèÛë‘
+	Paralysis = 1 << 2,		// 0000 0100 Ç‹Ç–èÛë‘
+	Burn	  = 1 << 3,		// 0000 1000 âŒèùèÛë‘
+	AtkUp	  = 1 << 4,		// 0001 0000 çUåÇóÕÉAÉbÉvèÛë‘
+	AtkDown	  = 1 << 5		// 0010 0000 çUåÇóÕÉ_ÉEÉìèÛë‘
+};
+
+typedef unsigned int UNIT;
+
+void DisplayStatus(UNIT s);
+void ChangeFlg(UNIT* s);
+void ClearFlag(UNIT* s);
+
+main()
+{
+	UNIT MyState = Base;
+
+	ChangeFlg(&MyState);
+	DisplayStatus(MyState);
+	ClearFlag(&MyState);
+	DisplayStatus(MyState);
+}
+
+void DisplayStatus(UNIT s)
+{
+	printf("\n***** åªç›ÇÃèÛë‘ *****\n");
+	if (s & Poison)
+	{
+		printf("ì≈\n");
+	}
+	if (s & Sleep)
+	{
+		printf("ñ∞ÇË\n");
+	}
+	if (s & Paralysis)
+	{
+		printf("Ç‹Ç–\n");
+	}
+	if (s & Burn)
+	{
+		printf("âŒèù\n");
+	}
+	if (s & AtkUp)
+	{
+		printf("çUåÇóÕÉAÉbÉv\n");
+	}
+	if (s & AtkDown)
+	{
+		printf("çUåÇóÕÉ_ÉEÉì\n");
+	}
+	if (s == Base)
+	{
+		printf("í èÌèÛë‘\n");
+	}
+	printf("**********************\n");
+}
+
+void ChangeFlg(UNIT* s)
+{
+	int a;
+	while (1)
+	{
+		printf("\nÇ«ÇÃèÛë‘Ç…ÇµÇ‹Ç∑Ç©ÅH\n");
+		printf("ÇPÅFì≈\nÇQÅFêáñ∞\nÇRÅFñÉ·É\nÇSÅFâŒèù\nÇTÅFçUåÇÅ™\nÇUÅFçUåÇÅ´\nÇOÅFèIóπ\n");
+		printf("\nÇ≥Ç†ÅAÇ«Ç§Ç∑ÇÈ => ");
+		scanf("%d", &a);
+		
+		if (a == 0)
+		{
+			break;
+		}
+		switch (a)
+		{
+			case 1:
+				*s |= Poison;
+				break;
+			case 2:
+				*s |= Sleep;
+				break;
+			case 3:
+				*s |= Paralysis;
+				break;
+			case 4:
+				*s |= Burn;
+				break;
+			case 5:
+				*s |= AtkUp;
+				break;
+			case 6:
+				*s |= AtkDown;
+				break;
+		}
+	}
+}
+
+void ClearFlag(UNIT* s)
+{
+	int a;
+	while (1)
+	{
+		printf("\nÇ«ÇÃèÛë‘Çé°ÇµÇ‹Ç∑Ç©ÅH\n");
+		printf("ÇPÅFì≈\nÇQÅFêáñ∞\nÇRÅFñÉ·É\nÇSÅFâŒèù\nÇTÅFçUåÇÅ™\nÇUÅFçUåÇÅ´\nÇVÅFëSâèú\nÇOÅFèIóπ\n");
+		printf("\nÇ≥Ç†ÅAÇ«Ç§Ç∑ÇÈ =>");
+		scanf("%d", &a);
+
+		if (a == 0)
+		{
+			break;
+		}
+		switch (a)
+		{
+		case 1:
+			*s &= ~Poison;
+			break;
+		case 2:
+			*s &= ~Sleep;
+			break;
+		case 3:
+			*s &= ~Paralysis;
+			break;
+		case 4:
+			*s &= ~Burn;
+			break;
+		case 5:
+			*s &= ~AtkUp;
+			break;
+		case 6:
+			*s &= ~AtkDown;
+			break;
+		case 7:
+			*s = Base;
+			break;
+		}
+	}
+}
